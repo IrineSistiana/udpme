@@ -1,0 +1,47 @@
+before:
+  hooks:
+    # You may remove this if you don't use go modules.
+    - go mod tidy
+builds:
+  - id: udpme-build
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+    goarch:
+      - amd64
+      - arm
+      - arm64
+      - mipsle
+      - mips
+      - 386
+    gomips:
+      - hardfloat
+      - softfloat
+    goarm:
+      - 7
+    ignore:
+      - goos: windows
+        goarch: arm
+        goarm: 7
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w
+
+archives:
+  - id: udpme-archive
+    builds:
+      - udpme-build
+    name_template: "{{ .ProjectName }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}-{{ .Arm }}{{ end }}{{ if .Mips }}-{{ .Mips }}{{ end }}"
+    format: zip
+    files:
+      - LICENSE
+      - README.md
+changelog:
+  skip: true
+
+snapshot:
+  name_template: "{{ .Tag }}-next"
+
