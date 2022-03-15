@@ -11,11 +11,15 @@ type upstream struct {
 	addr string
 }
 
-func newUpstream(addr string) *upstream {
+func tryAddPort(addr string, port string) string {
 	if _, _, err := net.SplitHostPort(addr); err != nil {
-		addr = net.JoinHostPort(addr, "53")
+		addr = net.JoinHostPort(addr, port)
 	}
-	return &upstream{addr: addr}
+	return addr
+}
+
+func newUpstream(addr string) *upstream {
+	return &upstream{addr: tryAddPort(addr, "53")}
 }
 
 func (u *upstream) exchange(m *dns.Msg) (*dns.Msg, error) {
