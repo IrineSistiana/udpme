@@ -6,9 +6,13 @@ udpme = UDP must have EDNS0。从协议层面借助 EDNS0 过滤掉有问题的 
 
 ## 命令参数
 
-- `l`: 监听地址。
-- `u`: UDP 上游地址。上游必需支持 EDNS0。
-- `t`: 快速测试 `-u` 是否支持 EDNS0。
+```txt
+  -l string
+        监听地址。(默认 "127.0.0.1:5353")
+  -u string
+        UDP 上游地址。支持自定义端口。必需支持 EDNS0。 (默认 "8.8.8.8")
+  -t    快速测试上游是否支持 EDNS0。
+```
 
 ## 使用
 
@@ -20,7 +24,7 @@ udpme -l 127.0.0.1:5353 -u 8.8.8.8
 
 测试服务器是否支持 EDNS0:
 
-打印 `edns0 response received`，说明支持。打印 `response received without edns0` 说明不支持。
+打印 `edns0 response received` 说明支持。打印 `response received without edns0` 说明不支持。
 
 ```bash
 udpme -u 8.8.8.8 -t
@@ -38,7 +42,7 @@ udpme -u 8.8.8.8 -t
 ;; flags: qr rd ra ad; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
 
 ;; OPT PSEUDOSECTION:
-; EDNS: version: 0, flags:; udp: 512    <-- 支持的服务器应答中这里会包含 EDNS0 
+; EDNS: version: 0, flags:; udp: 512   <-- 支持 EDNS0 的服务器应答中会有这行 
 ;; QUESTION SECTION:
 ;cloudflare.com.			IN	A
 
