@@ -29,7 +29,8 @@ func test() {
 	m := new(dns.Msg)
 	m.SetQuestion("cloudflare.com.", dns.TypeA)
 	m.SetEdns0(512, false)
-	r, err := dns.Exchange(m, tryAddPort(*upstreamAddr, "53"))
+	u := newUpstream(*upstreamAddr)
+	r, err := u.exchange(m)
 	if err != nil {
 		log.Printf("err: %s", err)
 	} else {
