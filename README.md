@@ -2,7 +2,7 @@
 
 udpme = UDP must have EDNS0。从协议层面借助 EDNS0 过滤掉有问题的 UDP 报文。全平台可用。
 
-原理: udpme 会发送带 EDNS0 的请求报文，然后过滤掉没有 EDNS0 的应答报文。如果服务器支持 EDNS0，则会回应 EDNS0。因此过滤掉没有 EDNS0 报文可以过滤掉某些有问题的(假的)回应。
+原理: udpme 会发送带 EDNS0 的请求报文，然后过滤掉没有 EDNS0 的应答报文。如果服务器支持 EDNS0，则会回应 EDNS0。因此过滤掉没有 EDNS0 报文可以过滤掉某些有问题的回应。
 
 ## 命令参数
 
@@ -55,3 +55,8 @@ cloudflare.com.		300	IN	A	104.16.133.229
 ;; WHEN: Tue Mar 15 01:42:53 UTC 2022
 ;; MSG SIZE  rcvd: 75
 ```
+
+## 其他项目
+
+- udpme 源自 [mosdns](https://github.com/IrineSistiana/mosdns): 一个插件化"可编程"的 DNS 服务器。用户可以按需拼接插件，搭建出自己想要的 DNS 服务器。
+- [mosdns-cn](https://github.com/IrineSistiana/mosdns-cn): 一个基于 mosdns 的 DNS 转发分流器。预设本地/远程 DNS 分流功能。可以同时根据域名和 IP 分流，更准确。无需折腾。全平台适用。可三分钟完成配置。常见平台支持命令行一键安装。
